@@ -2,6 +2,8 @@ package com.advancia.spring.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,10 +24,11 @@ public class PiadinaController {
     }
 	
     @PostMapping("/piadinas")
-    public String getPiadinas(Model model) {
+    public String getPiadinas(Model model, HttpSession session) {
         List<Piadina> piadinas = piadinaService.getPiadinas();
         if(piadinas != null && !piadinas.isEmpty()) {
         	model.addAttribute("piadinas", piadinas);
+        	session.setAttribute("piadinas", piadinas);
         } else {
             System.out.println("No piadinas found.");
         }
